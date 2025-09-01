@@ -171,6 +171,7 @@ void loop() {
 }
 ```
 ### Codigo processing
+```js
 import processing.serial.*;
 
 Serial myPort;
