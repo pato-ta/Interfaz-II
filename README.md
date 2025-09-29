@@ -150,6 +150,7 @@ void draw()
   fill(255, c, 0);
   ellipse(width/2, height/2, d, d);   
 }
+```
 # Ejercicio N°7 arduino-boton-processing
 ### Codigo arduino
 ```js
