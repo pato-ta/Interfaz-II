@@ -151,7 +151,7 @@ void draw()
   ellipse(width/2, height/2, d, d);   
 }
 ```
-<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/Arduino%20Processing.png"/
+<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/Arduino%20Processing.png">/
 
 # Ejercicio N°7 arduino-boton-processing
 ### Codigo arduino
