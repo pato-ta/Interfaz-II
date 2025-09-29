@@ -214,7 +214,7 @@ void draw() {
   }
 }
 ```
-# Ejercicio N°8 Arduino-boton.potenciometro
+# Ejercicio N°8 Arduino-boton-potenciometro-processing
 ### Codigo arduino
 ```js
 int buttonPin = 2;       // Pin del botón
@@ -236,6 +236,7 @@ void loop() {
     delay(200);               // debounce simple
   }
 }
+```
 ### Codigo processing
 ```js
 import processing.serial.*;
