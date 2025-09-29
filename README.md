@@ -108,7 +108,7 @@ void loop() {
 <img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/Semaforo.png">/
 <img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/Circuito.jpg">/
 
-# Ejercicio N°6 arduino processing
+# Ejercicio N°6 elipse interactivo
 ```js
 import processing.serial.*;
 
