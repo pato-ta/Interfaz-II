@@ -284,7 +284,7 @@ void draw() {
 ```
 # Ejercicio N°9 Estructuras de control en arduino
 ### for
-´´´js
+```js
 void setup() {
   Serial.begin(9600);   // Inicia la comunicación serial
 }
@@ -317,10 +317,10 @@ void loop() {
 
   delay(500); // medio segundo entre lecturas
 }
-´´´
+```
 # Ejercicio N°10 Botonera
 ### Codigo arduino
-´´´js
+```js
 // --- Configuración de botones ---
 const int numButtons = 3;
 const int buttonPins[numButtons] = {2, 4, 7};
@@ -388,9 +388,9 @@ void loop() {
 
   delay(10);
 }
-´´´
+```
 ### Codigo processing
-´´´js
+```js
 // Importamos librería para comunicación serial
 import processing.serial.*;
 // Importamos librería Minim para manejar audio
@@ -470,5 +470,5 @@ void playTrack(int index) {
   // Actualizamos la variable para saber cuál es la pista activa
   currentTrack = index;
 }
-´´´
+```
 
