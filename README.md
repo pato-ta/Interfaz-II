@@ -282,3 +282,193 @@ void draw() {
   }
 }
 ```
+# Ejercicio N°9 Estructuras de control en arduino
+### for
+´´´js
+void setup() {
+  Serial.begin(9600);   // Inicia la comunicación serial
+}
+
+void loop() {
+  for (int i = 0; i < 5; i++) {
+    Serial.println(i);  // imprime 0,1,2,3,4
+    delay(500);         // medio segundo entre cada número
+  }
+}
+´´´
+### if-else
+´´´js
+int valor;  // aquí guardaremos la lectura del sensor
+
+void setup() {
+  Serial.begin(9600);   // Inicia la comunicación serial
+}
+
+void loop() {
+  valor = analogRead(A0);   // lee el pin analógico A0
+
+  if (valor < 200) {
+    Serial.println("Muy bajo");
+  } else if (valor < 500) {
+    Serial.println("Medio");
+  } else {
+    Serial.println("Alto");
+  }
+
+  delay(500); // medio segundo entre lecturas
+}
+´´´
+# Ejercicio N°10 Botonera
+### Codigo arduino
+´´´js
+// --- Configuración de botones ---
+const int numButtons = 3;
+const int buttonPins[numButtons] = {2, 4, 7};
+const int ledButtonPins[numButtons] = {9, 10, 11}; // LEDs botones
+
+// --- Configuración de potenciómetros ---
+const int numPots = 2;
+const int potPins[numPots] = {A0, A1};
+const int ledPotPins[numPots] = {3, 5}; // LEDs PWM
+
+// Variables de estados previos
+int lastButtonState[numButtons];
+int lastPotValue[numPots];
+
+void setup() {
+  Serial.begin(9600);
+
+  // Configurar botones y LEDs
+  for (int i = 0; i < numButtons; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);
+    pinMode(ledButtonPins[i], OUTPUT);
+    lastButtonState[i] = digitalRead(buttonPins[i]);
+  }
+
+  // Configurar LEDs de potenciómetros
+  for (int i = 0; i < numPots; i++) {
+    pinMode(ledPotPins[i], OUTPUT);
+    lastPotValue[i] = analogRead(potPins[i]);
+  }
+}
+
+void loop() {
+  // Leer y enviar botones
+  for (int i = 0; i < numButtons; i++) {
+    int buttonState = digitalRead(buttonPins[i]);
+
+    // LED se enciende cuando botón está presionado
+    digitalWrite(ledButtonPins[i], buttonState == LOW ? HIGH : LOW);
+
+    if (buttonState != lastButtonState[i]) {  // enviar cambios
+      Serial.print("B");
+      Serial.print(i); 
+      Serial.print(":");
+      Serial.println(buttonState);
+      lastButtonState[i] = buttonState;
+    }
+  }
+
+  // Leer y enviar potenciómetros
+  for (int i = 0; i < numPots; i++) {
+    int potValue = analogRead(potPins[i]); // 0–1023
+    int pwmValue = potValue / 4;           // 0–255
+
+    // Ajustar LED según valor
+    analogWrite(ledPotPins[i], pwmValue);
+
+    if (abs(pwmValue - lastPotValue[i]) > 2) { // evitar ruido
+      Serial.print("P");
+      Serial.print(i);
+      Serial.print(":");
+      Serial.println(pwmValue);
+      lastPotValue[i] = pwmValue;
+    }
+  }
+
+  delay(10);
+}
+´´´
+### Codigo processing
+´´´js
+// Importamos librería para comunicación serial
+import processing.serial.*;
+// Importamos librería Minim para manejar audio
+import ddf.minim.*;
+
+// Declaramos el objeto serial para comunicarnos con Arduino
+Serial myPort;
+// Objeto principal de Minim
+Minim minim;
+// Array de reproductores de audio (3 pistas)
+AudioPlayer[] players;
+// Variable para guardar el índice de la pista que está sonando
+int currentTrack = -1;  // -1 significa que no hay pista activa al inicio
+
+void setup() {
+  size(400, 200); // Ventana de 400x200 píxeles
+  
+  // --- Configuración del puerto serial ---
+  printArray(Serial.list()); // Muestra en consola la lista de puertos disponibles
+  myPort = new Serial(this, Serial.list()[0], 9600); // Abrimos el primer puerto de la lista a 9600 baudios
+  
+  // --- Configuración de audio ---
+  minim = new Minim(this); // Inicializamos Minim
+  players = new AudioPlayer[3]; // Creamos un array de 3 reproductores
+  
+  // Cargamos los 3 archivos de audio desde la carpeta "data"
+  players[0] = minim.loadFile("audio1.mp3", 2048); 
+  players[1] = minim.loadFile("audio2.mp3", 2048); 
+  players[2] = minim.loadFile("audio3.mp3", 2048); 
+}
+
+void draw() {
+  background(0); // Fondo negro
+  fill(255);     // Color blanco para el texto
+  textSize(16);  // Tamaño del texto
+  
+  // Mostramos en pantalla qué botón está activo
+  text("Botón actual: " + (currentTrack == -1 ? "ninguno" : currentTrack), 20, 40);
+}
+
+void serialEvent(Serial myPort) {
+  // Leemos la cadena que llega desde Arduino hasta el salto de línea
+  String inString = trim(myPort.readStringUntil('\n'));
+  
+  // Si no llega nada, salimos
+  if (inString == null) return;
+
+  // --- Si el mensaje recibido empieza con "B" significa que es un botón ---
+  if (inString.startsWith("B")) {
+    // Quitamos la letra "B" y separamos el mensaje en partes (ejemplo "0:0")
+    String[] parts = split(inString.substring(1), ':');
+    
+    // Si realmente recibimos dos partes (índice y estado)
+    if (parts.length == 2) {
+      int buttonIndex = int(parts[0]); // Número del botón (0,1,2)
+      int state = int(parts[1]);       // Estado del botón (0 = presionado, 1 = suelto)
+      
+      // Si el botón fue presionado (LOW = 0 en Arduino)
+      if (state == 0) { 
+        playTrack(buttonIndex); // Llamamos a la función para reproducir la pista correspondiente
+      }
+    }
+  }
+}
+
+// --- Función que reproduce una pista según el botón ---
+void playTrack(int index) {
+  // Si ya había una pista sonando, la pausamos y la rebobinamos al inicio
+  if (currentTrack != -1 && players[currentTrack].isPlaying()) {
+    players[currentTrack].pause();
+    players[currentTrack].rewind();
+  }
+  
+  // Reproducimos en bucle la pista seleccionada
+  players[index].loop();
+  
+  // Actualizamos la variable para saber cuál es la pista activa
+  currentTrack = index;
+}
+´´´
+
