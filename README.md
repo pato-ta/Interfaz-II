@@ -295,9 +295,9 @@ void loop() {
     delay(500);         // medio segundo entre cada número
   }
 }
-´´´
+```
 ### if-else
-´´´js
+```js
 int valor;  // aquí guardaremos la lectura del sensor
 
 void setup() {
