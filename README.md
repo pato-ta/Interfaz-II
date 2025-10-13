@@ -530,7 +530,7 @@ void draw()
 
 }
 ```
-# Ejercicio N°11 Sensor humedad
+# Ejercicio N°12 Sensor humedad
 ### Codigo Arduino
 ```js
 void setup()
