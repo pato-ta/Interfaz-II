@@ -1,4 +1,6 @@
 # Interfaz-II
+##### Introduccion a processing y arduino para el desarrollo de una interfaz interactiva humano-maquina como pieza artistica.
+1. [Hola mundo] (#ejercicio-n1-hola-mundo) <br>
 
 # Ejercicio N°1 Hola mundo
 ```js
