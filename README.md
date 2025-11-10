@@ -1401,9 +1401,9 @@ PImage[] loadImagesFromFolder(String folderName) {
   return loaded.toArray(new PImage[loaded.size()]);
 }
 ```
-# Evaluación nota N°2: Desasosiego
-### Promedio de imagenes carpeta
+# Evaluación nota N°2 Desasosiego
 Realizaremos una secuencia de fotografías en blanco y negro que serán intervenidas posteriormente de forma análoga a partir de la tecnica rotoscopia. Haremos uso del ejercicio “promedio de Imágenes” a través de los programas Arduino IDE y Processing, y de un circuito que incluye un potenciómetro.
+### Promedio de imagenes carpeta
 ### Codigo arduino
 ```js
 void setup() {
