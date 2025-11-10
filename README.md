@@ -1,8 +1,20 @@
 # Interfaz-II
 ##### Introduccion a processing y arduino para el desarrollo de una interfaz interactiva humano-maquina como pieza artistica.
 1. [Hola mundo](#ejercicio-n1-hola-mundo) <br>
-2. 
-
+2. [Led parpadeante](#ejercicio-n2-led-parpadeante) <br>
+3. [Control pulsador](#ejercicio-n3-control-pulsador) <br>
+4. [Led potenciometro](#ejercicio-n4-led-potenciometro) <br>
+5. [Semaforo](#ejercicio-n5-semaforo) <br>
+6. [Elipse interactivo](#ejercicio-n6-elipse-interactivo) <br>
+7. [Arduino-boton](#ejercicio-n7-arduino-boton-processing) <br>
+8. [Arduino-boton-potenciometro](#ejercicio-n8-arduino-boton-potenciometro-processing) <br
+9. [Estructuras de control en arduino](#ejercicio-n9-estructuras-de-control-en-arduino) <br>
+10. [Botonera](#ejercicio-n10-botonera) <br>
+11. [Evalución nota N°1: Alteración elipse interactivo](#evaluaci%C3%B3n-nota-1-alteracion-elipse-interactivo) <br>
+12. [Sensor de distancia visual](#ejercicio-n11-sensor-distancia-visual) <br>
+13. [Sensor de humedad](#ejercicio-n12-sensor-humedad) <br>
+14. [Promedio de imagenes carpeta](#ejercicio-n14-promedio-de-imagenes-carpeta) <br>
+                                                             
 # Ejercicio N°1 Hola mundo
 ```js
 void setup() {
@@ -475,7 +487,7 @@ void playTrack(int index) {
   currentTrack = index;
 }
 ```
-# Evaluación nota 1 alteracion elipse interactivo
+# Evaluación nota N°1 alteracion elipse interactivo
 ### Codigo arduino
 ```js
 unsigned int ADCValue;
@@ -590,6 +602,8 @@ void draw(){
   rect(width/2 - d/2, height/2 - d/2, d, d); 
 }
 ```
+<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/elipse%20interactivo%20cuadrado.png">/
+
 ### Segunda alteración de codigo processing
 ### Pregunta a IA: Puedes modificar el codigo para que la figura sea una estrella?
 ```js
@@ -684,6 +698,8 @@ void star(float x, float y, float radius1, float radius2, int npoints) {
   popMatrix(); // Restaura el estado de transformación anterior
 }
 ````
+<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/elipse%20interactivo%20estrella.png">/
+
 ### Tercera alteración de codigo processing
 ### Pregunta a IA: Puedes modificarlo para que el azul y el rosado vayan en degrade dentro de la misma estrella?
 ```
@@ -782,6 +798,8 @@ void star(float x, float y, float radius1, float radius2, int npoints) {
   popMatrix(); // Restaura el estado de transformación anterior
 }
 ```
+<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/elipse%20interactivo%20azul%20rosado.png">/
+
 ### Cuarta alteración de codigo processing
 ### Pregunta a IA: Puedes modificarlo para que las mismas estrellas en degrade azul y rosado se conviertan en tres estrellas individuales una tras otra en degrade azul y rosado?
 ```js
@@ -914,6 +932,8 @@ void star(float x, float y, float radius1, float radius2, int npoints) {
   popMatrix();
 }
 ```
+<img src="https://raw.githubusercontent.com/pato-ta/Interfaz-II/refs/heads/main/imagen/elipse%20interactivo%20tres%20estrellas.png">/
+
 ### Quinta alteracion a codigo de processing
 ### Pregunta a IA: Puedes modificarlo para que estas tres estrellas cambien de tamaño cuando muevo el boton conectado al arduino?
 ```js
